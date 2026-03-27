@@ -1,1 +1,29 @@
-# Auth-sentinel
+# 🛡️ Auth-Sentinel: Identity Threat Detection Tool
+
+A Python-based security analytics tool designed to parse authentication logs and identify sophisticated identity-based attack patterns. This project simulates the detection logic used in modern SIEM (Security Information and Event Management) platforms.
+
+## 🚀 Overview
+Identity is the new perimeter. This tool analyzes `auth_log.csv` files to detect compromised accounts, session hijacking, and unauthorized automation.
+
+## 🔍 Key Detection Features
+* **Brute Force Detection:** Flags IPs with more than 5 failures in a 2-minute window.
+* **Success-After-Failure (Critical):** Identifies "True Positive" breaches where an attacker successfully logged in after repeated failed attempts.
+* **Impossible Travel:** Detects potential session hijacking by flagging users who "travel" between geographically distant countries (e.g., China to UAE) faster than physically possible.
+* **Non-Human Identity (NHI) Audit:** Identifies automated agents like `curl` or `python-requests` to monitor service account activity and shadow automation.
+* **Off-Hours Analysis:** Flags logins occurring outside of standard business hours (10 PM - 6 AM).
+
+## 🛠️ Tech Stack
+* **Python 3.13**
+* **Pandas Library:** Used for high-performance log parsing and time-series analysis.
+
+## 📊 Sample Output
+```text
+============================================================
+  PEERLINK AUTH LOG ANALYSER — SECURITY REPORT
+============================================================
+Total events loaded : 38
+Unique users        : 8
+FLAG 2: Success After Repeated Failures
+  ⚠  User: attacker@evil.com | IP: 45.33.32.156 (Russia)
+     10 failures → SUCCESS at 2026-03-27 09:05:21
+============================================================
